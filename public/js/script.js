@@ -12,7 +12,8 @@ async function main() {
     const db = client.db(dbName);
     const collection = db.collection('Noticias');
   
-    // the following code examples can be pasted here...
+    var teste = await collection.find({}).toArray();
+    console.log(teste)
   
     return 'done.';
   }
