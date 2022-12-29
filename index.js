@@ -25,12 +25,12 @@ app.get("/", function (req, res) {
 
         conteudo = ""
         Object.values(info).slice().reverse().forEach(async val => {
-            conteudo = conteudo + "<section>" + val + "</section>"
+            conteudo = conteudo + "<section>" + val + "</section>";
         });
 
-        res.render("index", { news: conteudo})
+        res.render("index", { news: conteudo});
 
-        return 'done.';
+        return 'Desconectando banco de dados.';
     }
   
     main()
@@ -39,6 +39,28 @@ app.get("/", function (req, res) {
         .finally(() => client.close());
 })
 
+app.get("/noticias/:newsid", function (req, res) {
+    var newid = req.params.newsid;
+    async function main() {
+        await client.connect();
+        console.log('Acessando banco de dados');
+        const db = client.db(dbName);
+        const collection = db.collection('Noticias');
+        
+        var dbArray = await collection.find({newsid: newid}).toArray();
+        var titulo = dbArray.map(newstitle => {return newstitle.titulo});
+        var conteudo = dbArray.map(newscontent => {return newscontent.conteudo});
+
+        res.render("noticia", { titulo: titulo, conteudo: conteudo});
+        return 'Desconectando banco de dados.';
+    }
+    
+    main()
+        .then(console.log)
+        .catch(console.error)
+        .finally(() => client.close());
+})
+
 app.listen(3000, function() {
-    console.log("http://localhost:3000")
+    console.log("http://localhost:3000");
 })

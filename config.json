@@ -1,6 +1,5 @@
 {
     "rootFolder": "./public",
-    "defaultIndex": "/public/html/index.html",
     "types" : {
         "htm": "text/html",
         "html": "text/html",

@@ -1,0 +1,44 @@
+.main .titulo {
+    margin: 1.5%;
+    border-bottom: 1px solid rgba(143, 27, 211, 0.568);
+}
+
+.main .titulo h3 {
+    margin: 1.5%;
+    text-align: center;
+    color: white;
+    font-size: 35px;
+}
+
+.main .noticias h3 {
+    margin: 0;
+    width: 100%;
+    border-bottom: 1px solid rgba(143, 27, 211, 0.568);
+}
+
+.main .noticias h3 a {
+    display: block;
+    margin: 0;
+    padding: 1.5%;
+    font-size: 30px;
+    color: white;
+}
+
+.main .noticias h3 a:hover {
+    color: rgba(175, 175, 175, 0.438);
+}
+
+.main .noticias section {
+    margin: 2% 1.5%;
+    padding: 2% 0;
+    border-bottom: 1px solid rgba(143, 27, 211, 0.568);
+}
+
+.main .noticias section a {
+    font-size: 20px;
+    color: blueviolet;
+}
+
+.main .noticias section p {
+    color: white;
+}

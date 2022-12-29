@@ -1,0 +1,22 @@
+.main .titulo {
+    margin: 1.5%;
+    border-bottom: 1px solid rgba(143, 27, 211, 0.568);
+}
+
+.main .titulo h3 {
+    margin: 1.5%;
+    text-align: center;
+    color: white;
+    font-size: 50px;
+}
+
+.main .content {
+    width: 98.5%;
+    height: 100%;
+    margin: 0 auto;
+    background-color: rgb(49, 49, 49);
+}
+
+.main .content p {
+    margin: 1.5%;
+}
