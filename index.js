@@ -48,10 +48,15 @@ app.get("/noticias/:newsid", function (req, res) {
         const collection = db.collection('Noticias');
         
         var dbArray = await collection.find({newsid: newid}).toArray();
-        var titulo = dbArray.map(newstitle => {return newstitle.titulo});
-        var conteudo = dbArray.map(newscontent => {return newscontent.conteudo});
-
-        res.render("noticia", { titulo: titulo, conteudo: conteudo});
+        console.log(dbArray)
+        if(dbArray != '') {
+            var titulo = dbArray.map(newstitle => {return newstitle.titulo});
+            var conteudo = dbArray.map(newscontent => {return newscontent.conteudo});
+    
+            res.render("noticia", { titulo: titulo, conteudo: conteudo});
+        } else {
+            res.send('Pagina não encontrada');
+        }
         return 'Desconectando banco de dados.';
     }
     
