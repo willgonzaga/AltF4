@@ -1,27 +1,35 @@
 const express = require("express");
 const app = express();
 const { join } = require('path');
-
+const path = require("path");
+const dotenv = require('dotenv');
+dotenv.config();
+const { MongoClient } = require('mongodb');
+const url = process.env.linkDB;
+const client = new MongoClient(url);
+const dbName = 'AltF4';
 
 app.use(express.static(join(__dirname + '/public')));
-app.get("/", function (req, res) {
-    const dotenv = require('dotenv');
-    dotenv.config();
-    const { MongoClient } = require('mongodb');
-    const url = process.env.linkDB;
-    const client = new MongoClient(url);
-    const dbName = 'AltF4';
+app.set("views", path.join(__dirname + "/public/views"));
+app.set("view engine", "ejs");
 
+app.get("/", function (req, res) {
     async function main() {
-        // Use connect method to connect to the server
         await client.connect();
         console.log('Acessando banco de dados');
         const db = client.db(dbName);
         const collection = db.collection('Noticias');
   
-        var teste = await collection.find({}).toArray();
-        console.log(teste)
-  
+        var dbArray = await collection.find({}).toArray();
+        var info = dbArray.map(newsinfo => {return newsinfo.infos.name + "\n" + newsinfo.infos.desc + "\n"});
+
+        conteudo = ""
+        Object.values(info).slice().reverse().forEach(async val => {
+            conteudo = conteudo + "<section>" + val + "</section>"
+        });
+
+        res.render("index", { news: conteudo})
+
         return 'done.';
     }
   
@@ -29,12 +37,6 @@ app.get("/", function (req, res) {
         .then(console.log)
         .catch(console.error)
         .finally(() => client.close());
-    res.sendFile(__dirname + "/public/html/index.html");
-})
-app.get("/teste", function (req, res) {
-    var teste = "teste funfa";
-    console.log(teste)
-    res.sendFile(__dirname + "/public/html/index2.html");
 })
 
 app.listen(3000, function() {
