@@ -1,3 +1,5 @@
 node_modules
 package-lock.json
 post.sh
+.env
+public/js/script.js
