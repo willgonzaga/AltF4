@@ -55,6 +55,85 @@ app.get("/", function (req, res) {
         .finally(() => client.close());
 })
 
+app.get("/recentes", function (req, res) {
+    async function main() {
+        await client.connect();
+        console.log('Acessando banco de dados');
+        const db = client.db(dbName);
+        const collection = db.collection('Noticias');
+  
+        var dbArray = await collection.find({}).toArray();
+        var info = dbArray.map(newsinfo => {return newsinfo.infos.name + "\n" + newsinfo.infos.desc});
+
+        conteudo = "";
+        Object.values(info).slice().reverse().forEach(async val => {
+            conteudo = conteudo + "<section> \n" + val + "\n</section>\n";
+        });
+
+        res.render("recentes", { nav: nav, news: conteudo, footer: footer});
+
+        return 'Desconectando banco de dados.';
+    }
+  
+    main()
+        .then(console.log)
+        .catch(console.error)
+        .finally(() => client.close());
+})
+
+app.get("/streamers", function (req, res) {
+    async function main() {
+        await client.connect();
+        console.log('Acessando banco de dados');
+        const db = client.db(dbName);
+        const collection = db.collection('Noticias');
+  
+        var dbArray = await collection.find({'infos.tag': "stream" }).toArray();
+        var info = dbArray.map(newsinfo => {return newsinfo.infos.name + "\n" + newsinfo.infos.desc});
+
+        conteudo = "";
+        Object.values(info).slice().reverse().forEach(async val => {
+            conteudo = conteudo + "<section> \n" + val + "\n</section>\n";
+        });
+
+        res.render("streamers", { nav: nav, news: conteudo, footer: footer});
+
+        return 'Desconectando banco de dados.';
+    }
+  
+    main()
+        .then(console.log)
+        .catch(console.error)
+        .finally(() => client.close());
+})
+
+app.get("/youtubers", function (req, res) {
+    async function main() {
+        await client.connect();
+        console.log('Acessando banco de dados');
+        const db = client.db(dbName);
+        const collection = db.collection('Noticias');
+  
+        var dbArray = await collection.find({'infos.tag': "yt" }).toArray();
+        var info = dbArray.map(newsinfo => {return newsinfo.infos.name + "\n" + newsinfo.infos.desc});
+
+        conteudo = "";
+        Object.values(info).slice().reverse().forEach(async val => {
+            conteudo = conteudo + "<section> \n" + val + "\n</section>\n";
+        });
+
+        res.render("youtubers", { nav: nav, news: conteudo, footer: footer});
+
+        return 'Desconectando banco de dados.';
+    }
+  
+    main()
+        .then(console.log)
+        .catch(console.error)
+        .finally(() => client.close());
+})
+
+
 app.get("/noticias/:newsid", function (req, res) {
     var newid = req.params.newsid;
     async function main() {
@@ -63,10 +142,10 @@ app.get("/noticias/:newsid", function (req, res) {
         const db = client.db(dbName);
         const collection = db.collection('Noticias');
         
-        var dbArray = await collection.find({newsid: newid}).toArray();
+        var dbArray = await collection.find({'infos.newsid': newid}).toArray();
         if(dbArray != '') {
-            var titulo = dbArray.map(newstitle => {return newstitle.titulo});
-            var conteudo = dbArray.map(newscontent => {return newscontent.conteudo});
+            var titulo = dbArray.map(newstitle => {return newstitle.content.titulo});
+            var conteudo = dbArray.map(newscontent => {return newscontent.content.conteudo});
     
             res.render("noticia", { nav: nav, titulo: titulo, conteudo: conteudo, footer: footer});
         } else {

@@ -11,7 +11,7 @@ async function main() {
     const db = client.db(dbName);
     const collection = db.collection('Noticias');
 
-    await collection.insertOne({infos: {name: "<a href='/noticias/teste'>Teste</a>", desc: "<p>Descrição Teste</p>"}, newsid: "teste", titulo: "Titulo Teste", conteudo: "Conteudo Teste"})
+    await collection.insertOne({infos: {name: "<a href='/noticias/ytteste'>Youtube Teste</a>", desc: "<p>Descrição Teste</p>", newsid: "ytteste", tag: "yt"}, content: {titulo: "Titulo Teste", conteudo: "Conteudo Teste"}})
 
     return 'Desconectando banco de dados.';
 }
