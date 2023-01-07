@@ -19,19 +19,11 @@
 
 .main .content p {
     margin: 1.5%;
-    padding-top: 1.5%;
-    padding-bottom: 1.5%;
     color: white;
 }
 
 .main .content img {
     width: 50%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-}
-
-.main .content iframe {
     margin: 0 auto;
     display: flex;
     justify-content: center;
