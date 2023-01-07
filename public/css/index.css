@@ -107,3 +107,9 @@ footer section ul li a {
 footer section p {
     color: white;
 }
+
+iframe {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
