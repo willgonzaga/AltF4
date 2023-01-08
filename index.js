@@ -32,7 +32,7 @@ app.get("/", function (req, res) {
         const collection = db.collection('Noticias');
   
         var dbArray = await collection.find({}).toArray();
-        var info = dbArray.map(newsinfo => {return newsinfo.infos.name + "\n" + newsinfo.infos.desc});
+        var info = dbArray.map(newsinfo => {return newsinfo.infos.name + "\n" + newsinfo.infos.desc + "\n" + newsinfo.infos.horario});
 
         conteudo = "";
         contador = 0;
@@ -63,7 +63,7 @@ app.get("/recentes", function (req, res) {
         const collection = db.collection('Noticias');
   
         var dbArray = await collection.find({}).toArray();
-        var info = dbArray.map(newsinfo => {return newsinfo.infos.name + "\n" + newsinfo.infos.desc});
+        var info = dbArray.map(newsinfo => {return newsinfo.infos.name + "\n" + newsinfo.infos.desc + "\n" + newsinfo.infos.horario});
 
         conteudo = "";
         Object.values(info).slice().reverse().forEach(async val => {
@@ -89,7 +89,7 @@ app.get("/streamers", function (req, res) {
         const collection = db.collection('Noticias');
   
         var dbArray = await collection.find({'infos.tag': "stream" }).toArray();
-        var info = dbArray.map(newsinfo => {return newsinfo.infos.name + "\n" + newsinfo.infos.desc});
+        var info = dbArray.map(newsinfo => {return newsinfo.infos.name + "\n" + newsinfo.infos.desc + "\n" + newsinfo.infos.horario});
 
         conteudo = "";
         Object.values(info).slice().reverse().forEach(async val => {
@@ -115,7 +115,7 @@ app.get("/youtubers", function (req, res) {
         const collection = db.collection('Noticias');
   
         var dbArray = await collection.find({'infos.tag': "yt" }).toArray();
-        var info = dbArray.map(newsinfo => {return newsinfo.infos.name + "\n" + newsinfo.infos.desc});
+        var info = dbArray.map(newsinfo => {return newsinfo.infos.name + "\n" + newsinfo.infos.desc + "\n" + newsinfo.infos.horario});
 
         conteudo = "";
         Object.values(info).slice().reverse().forEach(async val => {
@@ -145,9 +145,10 @@ app.get("/noticias/:newsid", function (req, res) {
         var dbArray = await collection.find({'infos.newsid': newid}).toArray();
         if(dbArray != '') {
             var titulo = dbArray.map(newstitle => {return newstitle.content.titulo});
+            var horario = dbArray.map(newsinfo => {return newsinfo.infos.horario});
             var conteudo = dbArray.map(newscontent => {return newscontent.content.conteudo});
     
-            res.render("noticia", { nav: nav, titulo: titulo, conteudo: conteudo, footer: footer});
+            res.render("noticia", { nav: nav, titulo: titulo, horario: horario, conteudo: conteudo, footer: footer});
         } else {
             res.send('Pagina não encontrada');
         }
