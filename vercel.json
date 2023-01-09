@@ -6,7 +6,6 @@
         }
     ],
     "routes": [
-        { "src": "/(.*)", "dest": "index.js" },
-        { "src": "/noticia/(.*)$", "dest": "/public/js/script.js?type=$1&file=$2" }
+        { "src": "/(.*)", "dest": "index.js" }
     ]
 }
