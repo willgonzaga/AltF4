@@ -24,6 +24,10 @@ fs.readFile(__dirname + '/public/html/footer.html', (err, data) => {
     footer = data;
 });
 
+app.get("/sitemap.xml", function (req, res) {
+    res.sendFile(__dirname + "/sitemap.xml")
+})
+
 app.get("/", function (req, res) {
     async function main() {
         await client.connect();
