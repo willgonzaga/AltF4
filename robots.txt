@@ -1,1 +1,3 @@
+User-agent: *
+Allow: /
 Sitemap: https://www.altf4.cf/sitemap.xml
