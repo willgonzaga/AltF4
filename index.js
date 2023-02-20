@@ -28,10 +28,6 @@ app.get("/sitemap.xml", function (req, res) {
      res.sendFile(path.join(__dirname) + "/sitemap.xml"); 
  })
 
-app.get("/robots.txt", function (req, res) {
-    res.sendFile(__dirname + "/robots.txt")
-})
-
 app.get("/", function (req, res) {
     async function main() {
         await client.connect();
