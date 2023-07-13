@@ -12,7 +12,8 @@ const dbName = 'AltF4';
 
 app.use(express.static(join(__dirname + '/public')));
 app.set("views", path.join(__dirname + "/public/views"));
-app.set("view engine", "ejs");
+app.engine('html', require('ejs').renderFile);
+app.set("view engine", "html");
 
 fs.readFile(__dirname + '/public/html/nav.html', (err, data) => {
     if (err) throw err;
